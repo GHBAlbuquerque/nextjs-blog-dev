@@ -1,7 +1,3 @@
-import { Suspense } from "react";
-import PostsList from "../PostsList";
-import SpinLoader from "../SpinLoader";
-
 type ContainerProps = {
   children: React.ReactNode;
 };
