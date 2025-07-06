@@ -1,4 +1,5 @@
 import Container from "@/components/Container";
+import Header from "@/components/Header";
 import PostsList from "@/components/PostsList";
 import SpinLoader from "@/components/SpinLoader";
 import { Suspense } from "react";
@@ -6,9 +7,7 @@ import { Suspense } from "react";
 export default async function Home() {
   return (
     <Container>
-      <header>
-        <h1 className="text-6x1 font-bold text-center py-8">Aqui é a header</h1>
-      </header>
+      <Header />
 
       <Suspense fallback={<SpinLoader />}>
         <PostsList />
