@@ -18,7 +18,7 @@ export default function Header() {
           )}
         >
           <a href="" className="href">
-            The Blog
+            The Planet Blog
           </a>
         </h1>
       </header>
