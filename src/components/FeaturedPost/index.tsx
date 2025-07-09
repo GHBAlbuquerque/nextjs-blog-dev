@@ -24,9 +24,9 @@ export default async function FeaturedPost({ id }: FeaturedpostProps) {
       <div className="flex flex-col gap-4 md:justify-center">
         <time
           className="text-slate-600 block text-sm/tight"
-          dateTime="2025-04-20"
+          dateTime={post.createdAt}
         >
-          {post.updatedAt}
+          {post.createdAt}
         </time>
         <PostHeading url="#" as="h1">
           {post.title}
