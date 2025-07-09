@@ -2,12 +2,32 @@ import Container from "@/components/Container";
 import Header from "@/components/Header";
 import PostsList from "@/components/PostsList";
 import SpinLoader from "@/components/SpinLoader";
+import Link from "next/link";
+import Image from "next/image";
 import { Suspense } from "react";
 
 export default async function Home() {
   return (
     <Container>
       <Header />
+
+      <section className="grid grid-cols-1 gap-8 mb-16 md:grid-cols-2 group">
+        <Link href="#" className="w-full h-full overflow-hidden rounded-xl">
+          <Image
+            className="group-hover:scale-105 transition"
+            src="/images/planet8.jpeg"
+            width={1024}
+            height={720}
+            alt="planet1"
+          />
+        </Link>
+        <div>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque ratione
+          quod quae dolorem odit sequi quia, aliquam aspernatur dignissimos
+          expedita possimus, culpa ex excepturi tempora rerum, rem autem veniam!
+          Consequuntur!
+        </div>
+      </section>
 
       <Suspense fallback={<SpinLoader />}>
         <PostsList />
