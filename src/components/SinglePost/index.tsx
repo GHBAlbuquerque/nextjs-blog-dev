@@ -1,5 +1,8 @@
 import { findPostBySlugCached } from "@/lib/post/queries";
+import Image from "next/image";
 import { notFound } from "next/navigation";
+import PostHeading from "../PostHeading";
+import { formatDatetime } from "@/utils/date-utils";
 
 type SinglePostProps = {
   slug: string;
@@ -11,8 +14,26 @@ export default async function SinglePost({ slug }: SinglePostProps) {
   if (!post) notFound();
 
   return (
-    <div>
-      <h1 className="text-2xl font-extrabold py-6">Dinâmica: {post.title}</h1>
-    </div>
+    <article className="mb-16">
+      <header className="flex flex-col gap-4 mb-4">
+        {" "}
+        <Image
+          src={post.coverImageUrl}
+          width={1200}
+          height={720}
+          alt={post.title}
+          className="rounded-xl max-h-[600px] object-cover object-center"
+        />
+        <PostHeading url={`/posts/${post.slug}`}>{post.title}</PostHeading>
+        <p>
+          {post.author} |{" "}
+          <span className="text-slate-600 font-light">
+            {formatDatetime(post.createdAt)}
+          </span>
+        </p>
+      </header>
+      <p className="mb-6 text-slate-500 italic">{post.excerpt}</p>
+      <p>{post.content}</p>
+    </article>
   );
 }
