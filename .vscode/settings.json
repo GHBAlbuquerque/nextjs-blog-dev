@@ -9,6 +9,7 @@
   "editor.lineNumbers": "on",
   "files.eol": "\n", // Final de linha sempre será LF
   "workbench.editor.labelFormat": "short", // shows file folder
+  "workbench.editor.enablePreview": false,
   "explorer.compactFolders": false,
 
   "tailwindCSS.experimental.classRegex": [
