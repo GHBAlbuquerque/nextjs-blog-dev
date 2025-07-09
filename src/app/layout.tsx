@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Container from "@/components/Container";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: {
@@ -24,11 +25,7 @@ export default function RootLayout({
 
           {children}
 
-          <footer>
-            <h2 className="text-6x1 font-bold text-center py-8">
-              Aqui é o footer
-            </h2>
-          </footer>
+          <Footer />
         </Container>
       </body>
     </html>

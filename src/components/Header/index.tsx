@@ -22,7 +22,7 @@ export default function Header() {
             "lg:text-7xl/tight"
           )}
         >
-          <Link href="">The Planet Blog</Link>
+          <Link href="/">The Planet Blog</Link>
         </h1>
         <h2
           className={clsx(
