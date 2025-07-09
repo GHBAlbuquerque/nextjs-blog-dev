@@ -2,10 +2,10 @@ import Container from "@/components/Container";
 import Header from "@/components/Header";
 import PostsList from "@/components/PostsList";
 import SpinLoader from "@/components/SpinLoader";
-import Link from "next/link";
-import Image from "next/image";
+
 import { Suspense } from "react";
 import PostHeading from "@/components/PostHeading";
+import PostCoverImage from "@/components/PostCoverImage";
 
 export default async function Home() {
   return (
@@ -13,16 +13,16 @@ export default async function Home() {
       <Header />
 
       <section className="grid grid-cols-1 gap-8 mb-16 md:grid-cols-2 group">
-        <Link className="w-full h-full overflow-hidden rounded-xl" href="#">
-          <Image
-            className="w-full h-full object-cover object-center group-hover:scale-105 transition"
-            src="/images/planet8.jpeg"
-            width={1024}
-            height={720}
-            alt="planet1"
-            priority
-          />
-        </Link>
+        <PostCoverImage
+          imageProps={{
+            src: "/images/planet1.jpeg",
+            alt: "planet1",
+            width: 1024,
+            height: 720,
+            priority: true,
+          }}
+          linkProps={{ href: "#" }}
+        />
         <div className="flex flex-col gap-4 md:justify-center">
           <time
             className="text-slate-600 block text-sm/tight"
