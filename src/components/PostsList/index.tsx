@@ -2,6 +2,11 @@ import { postRepository } from "@/repositories/post";
 import PostCoverImage from "../PostCoverImage";
 import PostHeading from "../PostHeading";
 import clsx from "clsx";
+import {
+  formatDatetime,
+  formatRelativeDate,
+  isOlderThanDays,
+} from "@/utils/date-utils";
 
 export default async function PostsList() {
   const posts = await postRepository.findAll();
@@ -29,7 +34,9 @@ export default async function PostsList() {
               className="text-slate-600 block text-sm/tight"
               dateTime={post.createdAt}
             >
-              {post.createdAt}
+              {isOlderThanDays(post.createdAt, 7)
+                ? formatDatetime(post.createdAt)
+                : formatRelativeDate(post.createdAt)}
             </time>
             <PostHeading url="#" as="h2">
               {post.title}

@@ -1,7 +1,7 @@
 import { format, formatDistanceToNow } from "date-fns";
 import { enUS } from "date-fns/locale";
 
-export function dateFormatter(rawDate: string): string {
+export function formatDatetime(rawDate: string): string {
   const date = new Date(rawDate);
   const formattedDate = format(date, "dd/MM/yyyy 'at' HH:mm", {
     locale: enUS,
@@ -17,5 +17,10 @@ export function formatRelativeDate(rawDate: string): string {
     addSuffix: false,
   });
 
-  return formattedDate;
+  return `${formattedDate} ago`;
+}
+
+export function isOlderThanDays(rawDate: string, days: number): boolean {
+  const date = new Date(rawDate);
+  return (Date.now() - date.getTime()) / (1000 * 60 * 60 * 24) > days;
 }
