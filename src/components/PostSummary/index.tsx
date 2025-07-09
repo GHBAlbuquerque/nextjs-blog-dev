@@ -4,12 +4,12 @@ import {
   isOlderThanDays,
 } from "@/utils/date-utils";
 import PostHeading from "../PostHeading";
-import { PostModel } from "@/models/post/post-model";
+import { PostModelDTO } from "@/models/post/post-model-dto";
 
 type PostSummaryProps = {
   postUrl: string;
   postHeadingType: "h1" | "h2";
-  post: PostModel;
+  post: PostModelDTO;
 };
 
 export default function PostSummary({
