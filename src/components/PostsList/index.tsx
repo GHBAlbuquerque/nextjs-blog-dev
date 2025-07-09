@@ -21,7 +21,7 @@ export default async function PostsList() {
                 height: 300,
               }}
               linkProps={{
-                href: `/post/${post.slug}`,
+                href: `/posts/${post.slug}`,
               }}
             />
             <PostSummary
