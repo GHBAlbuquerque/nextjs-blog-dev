@@ -5,6 +5,9 @@ import PostSummary from "../PostSummary";
 export default async function FeaturedPost() {
   const posts = await findAllPublicPosts();
   const post = posts[0];
+
+  const postLink = `/posts/${post.slug}`;
+
   return (
     <section className="grid grid-cols-1 gap-8 mb-16 md:grid-cols-2 group">
       <PostCoverImage
@@ -15,7 +18,7 @@ export default async function FeaturedPost() {
           height: 720,
           priority: true,
         }}
-        linkProps={{ href: `/posts/${post.slug}` }}
+        linkProps={{ href: postLink }}
       />
       <PostSummary
         postUrl={`/posts/${post.slug}`}
