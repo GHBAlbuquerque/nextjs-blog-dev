@@ -2,13 +2,9 @@ import { postRepository } from "@/repositories/post";
 import PostCoverImage from "../PostCoverImage";
 import PostSummary from "../PostSummary";
 
-type FeaturedpostProps = {
-  id: string;
-};
-
-export default async function FeaturedPost({ id }: FeaturedpostProps) {
-  const post = await postRepository.findById(id);
-
+export default async function FeaturedPost() {
+  const posts = await postRepository.findAllPublic();
+  const post = posts[0];
   return (
     <section className="grid grid-cols-1 gap-8 mb-16 md:grid-cols-2 group">
       <PostCoverImage
