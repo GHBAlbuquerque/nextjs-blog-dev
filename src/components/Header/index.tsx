@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import Link from "next/link";
 
 export default function Header() {
   return (
@@ -17,9 +18,9 @@ export default function Header() {
             "lg:py-12"
           )}
         >
-          <a href="" className="href">
+          <Link href="" className="href">
             The Planet Blog
-          </a>
+          </Link>
         </h1>
       </header>
     </>
