@@ -41,16 +41,13 @@ export class JsonPostRepository implements PostRepository {
 
     return post;
   }
+
+  async findBySlug(slug: string): Promise<PostModel> {
+    const posts = await this.findAllPublic();
+    const post = posts.find((post) => post.slug === slug);
+
+    if (!post) throw new Error("Post não encontrado");
+
+    return post;
+  }
 }
-
-// (async () => {
-//   const posts = await postRepository.findAll();
-//   console.log(posts[0]);
-// })();
-
-// (async () => {
-//   const post = await postRepository.findById(
-//     "afa086e4-53e4-492d-acf2-7c2966d83fcd"
-//   );
-//   console.log(post);
-// })();
