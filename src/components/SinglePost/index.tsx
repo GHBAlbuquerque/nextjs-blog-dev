@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import PostHeading from "../PostHeading";
 import { formatDatetime } from "@/utils/date-utils";
+import { SafeMarkdown } from "../SafeMarkdown";
 
 type SinglePostProps = {
   slug: string;
@@ -27,13 +28,15 @@ export default async function SinglePost({ slug }: SinglePostProps) {
         <PostHeading url={`/posts/${post.slug}`}>{post.title}</PostHeading>
         <p>
           {post.author} |{" "}
-          <span className="text-slate-600 font-light">
+          <span className="text-slate-600  dark:text-slate-400 font-light">
             {formatDatetime(post.createdAt)}
           </span>
         </p>
       </header>
-      <p className="mb-6 text-slate-500 italic">{post.excerpt}</p>
-      <p>{post.content}</p>
+      <p className="mb-6 text-slate-500 dark:text-slate-400 italic">
+        {post.excerpt}
+      </p>
+      <SafeMarkdown markdown={post.content} />
     </article>
   );
 }
