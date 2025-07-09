@@ -1,35 +1,37 @@
+import { postRepository } from "@/repositories/post";
 import PostCoverImage from "../PostCoverImage";
 import PostHeading from "../PostHeading";
 
-export default function FeaturedPost() {
+type FeaturedpostProps = {
+  id: string;
+};
+
+export default async function FeaturedPost({ id }: FeaturedpostProps) {
+  const post = await postRepository.findById(id);
+
   return (
     <section className="grid grid-cols-1 gap-8 mb-16 md:grid-cols-2 group">
       <PostCoverImage
         imageProps={{
-          src: "/images/planet8.jpeg",
-          alt: "planet8",
+          src: post.coverImageUrl,
+          alt: post.title,
           width: 1024,
           height: 720,
           priority: true,
         }}
-        linkProps={{ href: "#" }}
+        linkProps={{ href: `/posts/${post.slug}` }}
       />
       <div className="flex flex-col gap-4 md:justify-center">
         <time
           className="text-slate-600 block text-sm/tight"
           dateTime="2025-04-20"
         >
-          20/04/2025 10:00
+          {post.updatedAt}
         </time>
         <PostHeading url="#" as="h1">
-          Lorem ipsum dolor sit amet.
+          {post.title}
         </PostHeading>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque ratione
-          quod quae dolorem odit sequi quia, aliquam aspernatur dignissimos
-          expedita possimus, culpa ex excepturi tempora rerum, rem autem veniam!
-          Consequuntur!
-        </p>
+        <p>{post.excerpt}</p>
       </div>
     </section>
   );

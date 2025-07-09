@@ -7,7 +7,8 @@ export default async function PostsList() {
   const posts = await postRepository.findAll();
   return (
     <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      {posts.map((post) => {
+      {posts.map((post, index) => {
+        if (index == 0) return;
         return (
           <div
             className={clsx("flex", "flex-col", "gap-3", "group")}

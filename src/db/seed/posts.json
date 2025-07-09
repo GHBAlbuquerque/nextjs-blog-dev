@@ -1,6 +1,18 @@
 {
   "posts": [
     {
+      "id": "b3f1a9de-2d5c-42cb-9f21-7cf7b5a0e4e3",
+      "title": "Saturn's Rings: A Cosmic Wonder",
+      "slug": "saturns-rings-a-cosmic-wonder",
+      "excerpt": "Saturn's rings are one of the most iconic features in the Solar System, captivating astronomers for centuries and becoming a symbol of elegance, mystery and wonder.",
+      "content": "Composed mostly of ice particles with a dash of rocky debris, Saturn's rings stretch over 280,000 km but are surprisingly thin-only about 10 meters thick in some places. Scientists believe they may be remnants of comets or shattered moons.",
+      "coverImageUrl": "/images/planet8.jpeg",
+      "published": true,
+      "createdAt": "2025-04-10T09:13:29.844Z",
+      "updatedAt": "2025-04-10T09:22:47.109Z",
+      "author": "Camila Duarte"
+    },
+    {
       "id": "99f8add4-7684-4c16-a316-616271db199e",
       "title": "The Mysterious Atmosphere of Venus",
       "slug": "the-mysterious-atmosphere-of-venus",
