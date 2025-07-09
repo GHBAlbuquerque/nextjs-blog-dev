@@ -12,20 +12,32 @@ export default async function Home() {
       <Header />
 
       <section className="grid grid-cols-1 gap-8 mb-16 md:grid-cols-2 group">
-        <Link href="#" className="w-full h-full overflow-hidden rounded-xl">
+        <Link className="w-full h-full overflow-hidden rounded-xl" href="#">
           <Image
-            className="group-hover:scale-105 transition"
+            className="w-full h-full object-cover object-center group-hover:scale-105 transition"
             src="/images/planet8.jpeg"
             width={1024}
             height={720}
             alt="planet1"
+            priority
           />
         </Link>
-        <div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque ratione
-          quod quae dolorem odit sequi quia, aliquam aspernatur dignissimos
-          expedita possimus, culpa ex excepturi tempora rerum, rem autem veniam!
-          Consequuntur!
+        <div className="flex flex-col gap-4 md:justify-center">
+          <time
+            className="text-slate-600 block text-sm/tight"
+            dateTime="2025-04-20"
+          >
+            20/04/2025 10:00
+          </time>
+          <h1 className="text-2xl/tight font-extrabold md:text-4xl">
+            <Link href="#">Lorem ipsum dolor sit amet.</Link>
+          </h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque
+            ratione quod quae dolorem odit sequi quia, aliquam aspernatur
+            dignissimos expedita possimus, culpa ex excepturi tempora rerum, rem
+            autem veniam! Consequuntur!
+          </p>
         </div>
       </section>
 
