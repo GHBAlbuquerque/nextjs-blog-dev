@@ -33,7 +33,7 @@ export default async function PostsList() {
             <PostHeading url="#" as="h2">
               {post.title}
             </PostHeading>
-            <p>{post.excerpt}</p>
+            <p className="leading-normal text-left">{post.excerpt}</p>
           </div>
         );
       })}
