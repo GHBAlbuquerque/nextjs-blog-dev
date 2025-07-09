@@ -11,7 +11,7 @@ export default async function Home() {
     <Container>
       <Header />
 
-      <FeaturedPost id="b3f1a9de-2d5c-42cb-9f21-7cf7b5a0e4e3" />
+      <FeaturedPost />
 
       <Suspense fallback={<SpinLoader />}>
         <PostsList />
