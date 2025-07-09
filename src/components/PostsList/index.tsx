@@ -1,10 +1,10 @@
-import { postRepository } from "@/repositories/post";
 import PostCoverImage from "../PostCoverImage";
 import clsx from "clsx";
 import PostSummary from "../PostSummary";
+import { findAllPublicPosts } from "@/lib/post/queries";
 
 export default async function PostsList() {
-  const posts = await postRepository.findAllPublic();
+  const posts = await findAllPublicPosts();
   return (
     <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
       {posts.slice(1).map((post) => {
