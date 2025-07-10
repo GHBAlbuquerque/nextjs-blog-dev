@@ -8,16 +8,15 @@ type RootErrorPageProps = {
     reset: () => void;
 }
 
-export default function RootErrorPage({error, reset}: RootErrorPageProps){
+export default function RootErrorPage({ error }: RootErrorPageProps){
     useEffect(() => {
-        console.log(error);
+
     }, [error])
 
     return (
-        <DisplayErrorMessage pageTitle={"Uncaught Exception"} contentTitle={"500"} content={
+        <DisplayErrorMessage pageTitle={"Internal Server Error"} contentTitle={"501"} content={
            <>
-           <p>"Ooops... There was an error trying to find what you're looking for!"</p> 
-           <button onClick={()=> reset()}>Click here to try again</button>
+           <p>Ooops... There was an error trying to find what you`re looking for! Try again later.</p> 
            </>
         } />
     )
