@@ -41,5 +41,7 @@ yarn-error.log*
 next-env.d.ts
 
 #vscode
-
 .vscode
+
+#db
+db.sqlite3
