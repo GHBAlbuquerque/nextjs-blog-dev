@@ -13,8 +13,9 @@ export class DrizzlePostRepository implements PostRepository {
   }
 
   async findBySlugPublic(slug: string): Promise<PostModel> {
-    const posts = await this.findAllPublic();
-    const post = posts.find((post) => post.slug === slug);
+    const post = await drizzleDb.query.posts.findFirst({
+        where: (posts, { eq }) => eq(posts.slug, slug),
+    });
 
     if (!post) throw new Error("Post não encontrado");
 
@@ -22,7 +23,7 @@ export class DrizzlePostRepository implements PostRepository {
   }
 
   async findAll(): Promise<PostModel[]> {
-        const posts = await drizzleDb.query.posts.findMany({
+    const posts = await drizzleDb.query.posts.findMany({
         orderBy: (posts, { desc }) => desc(posts.createdAt)
     });
     
@@ -30,8 +31,9 @@ export class DrizzlePostRepository implements PostRepository {
   }
 
   async findById(id: string): Promise<PostModel> {
-    const posts = await this.findAllPublic();
-    const post = posts.find((post) => post.id === id);
+    const post = await drizzleDb.query.posts.findFirst({
+        where: (posts, { eq }) => eq(posts.id, id),
+    });
 
     if (!post) throw new Error("Post não encontrado");
 
