@@ -8,14 +8,18 @@ export class DrizzlePostRepository implements PostRepository {
         orderBy: (posts, { desc }) => desc(posts.createdAt),
         where: (posts, { eq }) => eq(posts.published, true),
     });
+
+    console.log(posts);
     
     return posts;
   }
 
   async findBySlugPublic(slug: string): Promise<PostModel> {
     const post = await drizzleDb.query.posts.findFirst({
-        where: (posts, { eq }) => eq(posts.slug, slug),
+        where: (posts, { eq, and }) => and(eq(posts.published, true), eq(posts.slug, slug))
     });
+
+    console.log(post);
 
     if (!post) throw new Error("Post não encontrado");
 

@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed": "npx tsx src/db/drizzle/seed.ts"
   },
   "dependencies": {
     "@types/better-sqlite3": "^7.6.13",
