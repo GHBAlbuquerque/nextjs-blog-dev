@@ -4,6 +4,8 @@ import { findPostBySlugCached } from "@/lib/post/queries";
 import { Metadata } from "next";
 import { Suspense } from "react";
 
+export const dynamic = 'force-static'
+
 type PostSlugPageProps = {
   params: Promise<{ slug: string }>;
 };
@@ -13,7 +15,6 @@ export async function generateMetadata({
 }: PostSlugPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = await findPostBySlugCached(slug);
-
   return {
     title: post?.title,
     description: post?.excerpt,
