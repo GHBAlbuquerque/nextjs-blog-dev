@@ -35,6 +35,7 @@ export default function Dialog({
         "items-center",
         "justify-center"
       )}
+      onClick={onCancel}
     >
       <div
         className={clsx(
@@ -55,6 +56,7 @@ export default function Dialog({
         aria-modal={true}
         aria-labelledby="dialog-title"
         aria-describedby="dialog-description"
+        onClick={e => e.stopPropagation}
       >
         <h3 id="dialog-title" className="text-xl font-extrabold">
           {title}

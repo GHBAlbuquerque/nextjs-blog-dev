@@ -20,8 +20,6 @@ export default function DeletePostButton({ id, title }: DeletePostButtonProps) {
   }
 
   function handleConfirm(){
-      console.log("Handle confirm!");
-
       startTransition(async () => {
       const result = await deletePostAction(id);
       console.log(result);
