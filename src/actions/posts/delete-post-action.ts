@@ -2,6 +2,7 @@
 
 import { postRepository } from "@/repositories/post";
 import simulateWait from "@/utils/simulate-wait";
+import { revalidateTag } from "next/cache";
 
 export async function deletePostAction(id: string) {
     if(!id || typeof id !== 'string') {
@@ -19,6 +20,9 @@ export async function deletePostAction(id: string) {
     }
 
     await postRepository.delete(id);
+
+    revalidateTag('posts'); //defined on the queries file for posts
+    revalidateTag(`post-${post.slug}`); //defined on the queries file for posts
 
     await simulateWait();
     return {

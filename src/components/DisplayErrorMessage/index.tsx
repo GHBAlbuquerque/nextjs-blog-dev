@@ -3,14 +3,14 @@
 import clsx from "clsx";
 
 type DisplayErrorMessageProps = {
-    pageTitle: string;
+    pageTitle?: string;
     contentTitle: string;
     content: React.ReactNode;
 };
-export default function DisplayErrorMessage({pageTitle, contentTitle, content}: DisplayErrorMessageProps) {
+export default function DisplayErrorMessage({pageTitle = "", contentTitle, content}: DisplayErrorMessageProps) {
   return (
-    <>
-      <title>{pageTitle}</title>
+    <>{pageTitle && <title>{pageTitle}</title>}
+      
       <div
         className={clsx(
           "min-h-[320px]",
