@@ -1,9 +1,8 @@
 'use server';
 
-import { logColor } from "@/utils/log-color";
+import simulateWait from "@/utils/simulate-wait";
 
-export async function deletePostAction(formData: FormData) {
-    const id = formData.get('id');  
-    logColor(''+id);
-
+export async function deletePostAction(id: string) {
+    await simulateWait();
+    return id;
 }
