@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
 import { deletePostAction } from "@/actions/posts/delete-post-action";
 import clsx from "clsx";
 import { Trash2Icon } from "lucide-react";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
+import Dialog from "../Dialog";
 
 type DeletePostButtonProps = {
   id: string;
@@ -12,16 +13,23 @@ type DeletePostButtonProps = {
 
 export default function DeletePostButton({ id, title }: DeletePostButtonProps) {
   const [isPending, startTransition] = useTransition();
+  const [showDialog, setShowDialog] = useState(false);
 
   function handleClick() {
-    startTransition(async () => {
-      console.log(isPending);
+    setShowDialog(true);
+  }
+
+  function handleConfirm(){
+      console.log("Handle confirm!");
+
+      startTransition(async () => {
       const result = await deletePostAction(id);
-      alert("Post deleted! " + result);
+      console.log(result);
+      setShowDialog(false);
     });
   }
 
-  return (
+  return (<>
     <button
       className={clsx(
         "text-red-400",
@@ -41,5 +49,15 @@ export default function DeletePostButton({ id, title }: DeletePostButtonProps) {
     >
       <Trash2Icon />
     </button>
+
+    {showDialog && 
+      <Dialog isVisible={showDialog} 
+      title={`Delete post?`} 
+      content={`Are you sure you want to delete the post "${title}"?`}
+      onConfirm={() => handleConfirm()}
+      onCancel={() => setShowDialog(false)}
+      disabled={isPending}
+      />}
+    </>
   );
 }
