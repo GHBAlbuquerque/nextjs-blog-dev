@@ -2,11 +2,13 @@ import { PostModel } from "@/models/post/post-model";
 import { PostRepository } from "./post-repository";
 import { drizzleDb } from "@/db/drizzle";
 import { logColor } from "@/utils/log-color";
+import simulateWait from "@/utils/simulate-wait";
 
 export class DrizzlePostRepository implements PostRepository {
   async findAllPublic(): Promise<PostModel[]> {
     logColor('findAllPublic', Date.now())
 
+    await simulateWait();
     const posts = await drizzleDb.query.posts.findMany({
         orderBy: (posts, { desc }) => desc(posts.createdAt),
         where: (posts, { eq }) => eq(posts.published, true),
@@ -30,6 +32,7 @@ export class DrizzlePostRepository implements PostRepository {
   async findAll(): Promise<PostModel[]> {
     logColor('findAll', Date.now())
 
+    await simulateWait();
     const posts = await drizzleDb.query.posts.findMany({
         orderBy: (posts, { desc }) => desc(posts.createdAt)
     });
