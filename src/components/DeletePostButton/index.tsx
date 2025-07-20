@@ -14,10 +14,11 @@ export default function DeletePostButton({ id, title }: DeletePostButtonProps) {
   const [isPending, startTransition] = useTransition();
 
   function handleClick() {
-        startTransition(async () => {
-        const result = await deletePostAction(id);
-        alert("Post deleted! " + result);
-        });
+    startTransition(async () => {
+      console.log(isPending);
+      const result = await deletePostAction(id);
+      alert("Post deleted! " + result);
+    });
   }
 
   return (
