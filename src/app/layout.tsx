@@ -3,6 +3,8 @@ import "./globals.css";
 import Container from "@/components/Container";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import React from "react";
+import ToastifyContainer from "@/components/ToastifyContainer";
 
 export const metadata: Metadata = {
   title: {
@@ -18,16 +20,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <Container>
-          <Header />
+    <React.StrictMode>
+      <html lang="en">
+        <body>
+          <Container>
+            <Header />
 
-          {children}
+            {children}
 
-          <Footer />
-        </Container>
-      </body>
-    </html>
+            <Footer />
+          </Container>
+
+          <ToastifyContainer />
+        </body>
+      </html>
+    </React.StrictMode>
   );
 }
