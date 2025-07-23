@@ -1,12 +1,19 @@
 "use client";
 
 import clsx from "clsx";
-import { CircleXIcon, FileTextIcon, HomeIcon, MenuIcon } from "lucide-react";
+import { CircleXIcon, FileTextIcon, HomeIcon, MenuIcon, PlusIcon } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function MenuAdmin() {
+  
   const [isOpen, setIsOpen] = useState(false);
+  const pathName = usePathname();
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathName]);
 
   const navClasses = clsx(
     "bg-slate-900",
@@ -69,6 +76,11 @@ export default function MenuAdmin() {
         <Link className={linkClasses} href="/admin/posts">
           <FileTextIcon />
           Posts
+        </Link>
+
+        <Link className={linkClasses} href="/admin/posts/new">
+          <PlusIcon />
+          Create
         </Link>
       </nav>
     </>
