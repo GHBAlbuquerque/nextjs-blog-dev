@@ -6,13 +6,16 @@ import { InputCheckbox } from "../InputCheckbox";
 import { InputText } from "../InputText";
 import MarkdownEditor from "../MarkdownEditor";
 import { useState } from "react";
+import ImageUploader from "../ImageUploader";
 
 export default function ManagePostForm(){
-    const [contentValue, setContentValue] = useState('Type something here...');
+    const [contentValue, setContentValue] = useState('');
 
     return (
     <form action='' className="mb-6">
       <div className="flex flex-col gap-6">
+        <ImageUploader />
+        
         <InputText labelText="Post title" placeholder="Type here" />
 
         <InputText labelText="Post title" placeholder="Type here" />

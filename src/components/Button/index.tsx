@@ -41,7 +41,19 @@ export default function Button({
 
   return (
     <button
-      className={clsx(`${buttonVariant}`, `${buttonSize}`, 'flex', 'items-center', 'justify-center', 'transition', 'cursor-pointer', 'disabled:bg-slate-200', 'disabled:text-slate-400', 'disabled:cursor-not-allowed')}
+      className={clsx(
+        `${buttonVariant}`,
+        `${buttonSize}`,
+        "flex",
+        "items-center",
+        "justify-center",
+        "transition",
+        "cursor-pointer",
+        "disabled:bg-slate-200",
+        "disabled:text-slate-400",
+        "disabled:cursor-not-allowed",
+        props.className
+      )}
       {...props}
     >
       {children}
