@@ -41,8 +41,6 @@ export default function ImageUploader() {
     fileInput.value = "";
   }
 
-
-
   return (
     <div className="flex flex-col items-start gap-2">
       <Button type="button" variant="default"
