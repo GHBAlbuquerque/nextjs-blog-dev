@@ -9,7 +9,7 @@ import { uploadImageAction } from "@/actions/posts/upload-image-action";
 
 export default function ImageUploader() {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [isPending, startUpload] = useTransition();
+  const [isUploading, startUpload] = useTransition();
 
   function handleChooseImage() {
     if(!fileInputRef.current) return;
@@ -17,6 +17,8 @@ export default function ImageUploader() {
   }
 
   function handleChange(){
+    toast.dismiss();
+
     if(!fileInputRef.current) return;
     const fileInput = fileInputRef.current;
     const file = fileInput.files?.[0]; // it is possible yo upload multiple files, but in this case we have only one
@@ -34,8 +36,15 @@ export default function ImageUploader() {
     formData.append("file", file);
 
     startUpload(async () => {
-        const result = await uploadImageAction();
-        console.log(formData.get('file'))
+        const result = await uploadImageAction(formData);
+
+        if(result.error) {
+          toast.error(result.error);
+          fileInput.value = "";
+          return;
+        }
+
+        toast.success(result.url);
     });
 
     fileInput.value = "";
