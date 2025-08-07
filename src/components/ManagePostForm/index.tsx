@@ -7,9 +7,14 @@ import { InputText } from "../InputText";
 import MarkdownEditor from "../MarkdownEditor";
 import { useState } from "react";
 import ImageUploader from "../ImageUploader";
+import { PublicPost } from "@/dto/post/dto";
 
-export default function ManagePostForm() {
-  const [contentValue, setContentValue] = useState("");
+type ManagePostFormProps = {
+  publicPost?: PublicPost;
+}
+
+export default function ManagePostForm({ publicPost }: ManagePostFormProps) {
+  const [contentValue, setContentValue] = useState(publicPost?.content || '');
 
   return (
     <form action="" className="mb-6">
@@ -19,7 +24,7 @@ export default function ManagePostForm() {
           name="id"
           placeholder="Id automatically generated"
           type="text"
-          defaultValue={""}
+          defaultValue={publicPost?.id || ''}
           readOnly
         />
 
@@ -28,7 +33,7 @@ export default function ManagePostForm() {
           name="slug"
           placeholder="Slug automatically generated"
           type="text"
-          defaultValue={""}
+          defaultValue={publicPost?.slug|| ''}
           readOnly
         />
 
@@ -37,7 +42,7 @@ export default function ManagePostForm() {
           name="author"
           placeholder="Your name"
           type="text"
-          defaultValue={""}
+          defaultValue={publicPost?.author || ''}
         />
 
         <InputText
@@ -45,7 +50,7 @@ export default function ManagePostForm() {
           name="title"
           placeholder="Your post title"
           type="text"
-          defaultValue={""}
+          defaultValue={publicPost?.title}
         />
 
         <InputText
@@ -53,7 +58,7 @@ export default function ManagePostForm() {
           name="excerpt"
           placeholder="Post excerpt"
           type="text"
-          defaultValue={""}
+          defaultValue={publicPost?.excerpt || ''}
         />
 
         <MarkdownEditor
@@ -69,15 +74,16 @@ export default function ManagePostForm() {
         <InputText
           labelText="Image Url"
           name="ImageUrl"
-          placeholder="imgUrl"
+          placeholder="Image Url"
           type="text"
-          defaultValue={""}
+          defaultValue={publicPost?.coverImageUrl || ''}
         />
 
       <InputCheckbox
         labelText="Publish?"
         name="published"
-        type={"checkbox"}
+        type="checkbox"
+        defaultChecked={publicPost?.published || false}
       />
       </div>
 
