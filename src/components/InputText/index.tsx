@@ -31,6 +31,7 @@ export function InputText({ labelText = "", ...props }: InputTextProps) {
           "disabled:cursor-not-allowed",
           "dark:bg-slate-800",
           "dark:text-slate-50",
+          "read-only:bg-slate-200",
           props.className
         )}
         {...props}
