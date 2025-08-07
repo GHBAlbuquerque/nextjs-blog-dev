@@ -1,6 +1,7 @@
 "use server";
 
 import { IMAGE_SERVER_URL, IMAGE_UPLOAD_DIR, IMAGE_UPLOAD_MAX_SIZE } from "@/lib/post/constants";
+import simulateWait from "@/utils/simulate-wait";
 import { mkdir, writeFile } from "fs/promises";
 import { extname, resolve } from "path";
 
@@ -15,6 +16,10 @@ type UploadImageActionResult = {
 export async function uploadImageAction(
   formData: FormData
 ): Promise<UploadImageActionResult> {
+
+    await simulateWait();
+
+
   const makeResult = ({ url = "", error = "" }): UploadImageActionResult => ({
     url,
     error,
