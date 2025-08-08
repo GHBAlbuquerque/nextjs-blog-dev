@@ -12,8 +12,19 @@ export async function createPostAction(
     formData: FormData 
 ): Promise<CreatePostActionState> {
 
-    console.log(prevState);
-    console.log(formData);
+    // create a CreatePostActionState with params from formData
+
+    if (!(formData instanceof FormData)) {
+        return {
+            formState: prevState.formState,
+            errors: ["Invalid data."],
+        };
+    }
+    
+    const formDataEntries = formData.entries(); // generfate key-value objects from formData
+    const formDataObj = Object.fromEntries(formDataEntries);
+
+    
 
     return {
         formState: prevState.formState,
