@@ -55,7 +55,11 @@ export class JsonPostRepository implements PostRepository {
     throw new Error("Method not implemented.");
   }
 
-  async update(post: PostModel): Promise<PostModel> {
+  async update(
+    id: string,
+    newPostData: Omit<PostModel, "id" | "slug" | "createdAt">
+  ): Promise<PostModel> {
+   
     console.log("Update");
     throw new Error("Method not implemented.");
   }

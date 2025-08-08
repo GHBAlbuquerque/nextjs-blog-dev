@@ -57,12 +57,12 @@ export class DrizzlePostRepository implements PostRepository {
 
   async create(post: PostModel): Promise<PostModel> {
     const postExists = await drizzleDb.query.posts.findFirst({
-      where:(posts, {or, eq}) => 
+      where: (posts, { or, eq }) =>
         or(eq(posts.id, post.id), eq(posts.slug, post.slug)),
-      columns: {id: true}
-    })
+      columns: { id: true },
+    });
 
-    if(!!postExists) {
+    if (!!postExists) {
       throw new Error("Post with ID or Slug already exists on database");
     }
 
@@ -70,16 +70,47 @@ export class DrizzlePostRepository implements PostRepository {
     return post;
   }
 
-  async update(post: PostModel): Promise<PostModel> {
-    return post; //TODO
+  async update(
+    id: string,
+    newPostData: Omit<PostModel, "id" | "slug" | "createdAt">
+  ): Promise<PostModel> {
+    
+    const currentPost = await drizzleDb.query.posts.findFirst({
+      where: (posts, { eq }) => eq(posts.id, id),
+    });
+
+    if(!currentPost) {
+      throw new Error("Post does not exist");
+    }
+
+    const updatedAt = new Date().toISOString();
+    const postData = {
+      author: newPostData.author,
+      title: newPostData.title,
+      excerpt: newPostData.excerpt,
+      content: newPostData.content,
+      coverImageUrl: newPostData.coverImageUrl,
+      published: newPostData.published,
+      updatedAt,
+    };
+
+    await drizzleDb.update(postsTable)
+    .set(postData)
+    .where(eq(postsTable.id, id))
+
+    return {
+      ...currentPost,
+      ...postData // overwrites the previous post
+    }
   }
 
   async delete(id: string): Promise<PostModel> {
     const post = await drizzleDb.query.posts.findFirst({
-    where: (posts, { eq }) => eq(posts.id, id), });
-    
-    if(!post) {
-      throw new Error('Post does not exist');
+      where: (posts, { eq }) => eq(posts.id, id),
+    });
+
+    if (!post) {
+      throw new Error("Post does not exist");
     }
 
     await drizzleDb.delete(postsTable).where(eq(postsTable.id, id));
