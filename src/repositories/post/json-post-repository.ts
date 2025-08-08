@@ -50,8 +50,18 @@ export class JsonPostRepository implements PostRepository {
     return post;
   }
 
-    async delete(id: string): Promise<void> {
-      console.log(id);
-      throw new Error("Method not implemented.");
-    }
+  async create(post: PostModel): Promise<PostModel> {
+    console.log("Create");
+    throw new Error("Method not implemented.");
+  }
+
+  async update(post: PostModel): Promise<PostModel> {
+    console.log("Update");
+    throw new Error("Method not implemented.");
+  }
+
+  async delete(id: string): Promise<PostModel> {
+    console.log(id);
+    throw new Error("Method not implemented.");
+  }
 }

@@ -1,7 +1,5 @@
 "use server";
 
-import { drizzleDb } from "@/db/drizzle";
-import { postsTable } from "@/db/drizzle/schemas";
 import { makePartialPublicPost, PublicPost } from "@/dto/post/dto";
 import { PostCreateSchema } from "@/lib/post/validations";
 import { PostModel } from "@/models/post/post-model";
@@ -10,6 +8,7 @@ import { makeSlugFromText } from "@/utils/make-slug-from-text";
 import { revalidateTag } from "next/cache";
 import { v4 as uuidV4 } from "uuid";
 import { redirect } from "next/navigation";
+import { postRepository } from "@/repositories/post";
 
 type CreatePostActionState = {
   formState: PublicPost;
@@ -52,8 +51,22 @@ export async function createPostAction(
     updatedAt: new Date().toISOString(),
   };
 
-  //TODO: move to repository
-  await drizzleDb.insert(postsTable).values(newPost);
+  try {
+    await postRepository.create(newPost);
+  } catch (e: unknown) {
+    if(e instanceof Error) {
+      return {
+        formState: newPost,
+        errors: [e.message]
+      }
+    }
+
+    return {
+      formState: newPost,
+      errors: ["Unknown error"]
+    }
+  }
+
 
   revalidateTag("posts"); //defined on the queries file for posts, revalidate the cache tag to include the new one
   redirect(`/admin/posts/${newPost.id}`);
