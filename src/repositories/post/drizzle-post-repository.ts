@@ -75,11 +75,11 @@ export class DrizzlePostRepository implements PostRepository {
     newPostData: Omit<PostModel, "id" | "slug" | "createdAt">
   ): Promise<PostModel> {
     
-    const currentPost = await drizzleDb.query.posts.findFirst({
+    const existingPost = await drizzleDb.query.posts.findFirst({
       where: (posts, { eq }) => eq(posts.id, id),
     });
 
-    if(!currentPost) {
+    if(!existingPost) {
       throw new Error("Post does not exist");
     }
 
@@ -99,7 +99,7 @@ export class DrizzlePostRepository implements PostRepository {
     .where(eq(postsTable.id, id))
 
     return {
-      ...currentPost,
+      ...existingPost,
       ...postData // overwrites the previous post
     }
   }
