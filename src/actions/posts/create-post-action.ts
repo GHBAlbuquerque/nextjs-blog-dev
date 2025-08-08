@@ -23,7 +23,6 @@ export async function createPostAction(
     
     const formDataEntries = formData.entries(); // generfate key-value objects from formData
     const formDataObj = Object.fromEntries(formDataEntries);
-
     
 
     return {
