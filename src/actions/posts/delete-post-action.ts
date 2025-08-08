@@ -24,7 +24,7 @@ export async function deletePostAction(id: string) {
 
     await postRepository.delete(id);
 
-    revalidateTag('posts'); //defined on the queries file for posts
+    revalidateTag('posts'); //defined on the queries file for posts,  revalidate the cache tag to remove the deleted one
     revalidateTag(`post-${post.slug}`); //defined on the queries file for posts
 
     await simulateWait();

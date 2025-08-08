@@ -38,7 +38,6 @@ export default function ManagePostForm({ publicPost }: ManagePostFormProps) {
     }
   }, [state.errors]);
 
-
   return (
     <form action={action} className="mb-6">
       <div className="flex flex-col gap-6">
@@ -111,7 +110,7 @@ export default function ManagePostForm({ publicPost }: ManagePostFormProps) {
       </div>
 
       <div className="mt-6">
-        <Button variant="default" size="md" type="submit">
+        <Button variant="default" size="md" type="submit" disabled={isPending}>
           <CheckIcon /> Submit
         </Button>
       </div>
