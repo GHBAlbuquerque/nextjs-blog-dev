@@ -52,6 +52,11 @@ export default function ManagePostForm(props: ManagePostFormProps) {
   const [contentValue, setContentValue] = useState(formState.content);
 
   useEffect(() => {
+    if(state.success) {
+      toast.dismiss();
+      toast.success(`Successfully ${mode === "create" ? "created" : "updated"} post.`)
+    }
+
     if (state.errors.length > 0) {
       toast.dismiss();
       state.errors.forEach((error) => {
@@ -107,6 +112,7 @@ export default function ManagePostForm(props: ManagePostFormProps) {
           placeholder="Post excerpt"
           type="text"
           defaultValue={formState.excerpt}
+          disabled={isPending}
         />
 
         <MarkdownEditor

@@ -7,7 +7,11 @@ import { IMAGE_UPLOAD_MAX_SIZE } from "@/lib/post/constants";
 import { toast } from "react-toastify";
 import { uploadImageAction } from "@/actions/posts/upload-image-action";
 
-export default function ImageUploader() {
+type ImageUploaderProps = {
+  disabled?: boolean
+}
+
+export default function ImageUploader({disabled = false}: ImageUploaderProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, startUpload] = useTransition();
   const [imgUrl, setImgUrl] = useState("");
@@ -56,7 +60,7 @@ export default function ImageUploader() {
 
   return (
     <div className="flex flex-col items-start gap-2">
-      <Button type="button" variant="default" onClick={handleChooseImage} disabled={isUploading}>
+      <Button type="button" variant="default" onClick={handleChooseImage} disabled={isUploading || disabled}>
         <ImageUpIcon />
         Upload Image
       </Button>
@@ -80,6 +84,7 @@ export default function ImageUploader() {
         type="file"
         accept="image/*"
         onChange={handleChange}
+        disabled={disabled}
       />
     </div>
   );

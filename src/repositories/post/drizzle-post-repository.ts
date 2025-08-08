@@ -66,7 +66,9 @@ export class DrizzlePostRepository implements PostRepository {
       throw new Error("Post with ID or Slug already exists on database");
     }
 
+    await simulateWait();
     await drizzleDb.insert(postsTable).values(post);
+    
     return post;
   }
 
@@ -93,6 +95,8 @@ export class DrizzlePostRepository implements PostRepository {
       published: newPostData.published,
       updatedAt,
     };
+
+    await simulateWait();
 
     await drizzleDb.update(postsTable)
     .set(postData)
