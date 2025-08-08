@@ -5,10 +5,11 @@ import Button from "../Button";
 import { InputCheckbox } from "../InputCheckbox";
 import { InputText } from "../InputText";
 import MarkdownEditor from "../MarkdownEditor";
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import ImageUploader from "../ImageUploader";
 import { makePartialPublicPost, PublicPost } from "@/dto/post/dto";
 import { createPostAction } from "@/actions/posts/create-post-action";
+import { toast } from "react-toastify";
 
 type ManagePostFormProps = {
   publicPost?: PublicPost;
@@ -25,8 +26,18 @@ export default function ManagePostForm({ publicPost }: ManagePostFormProps) {
     initialState // pass what i receive from the db or initial state (empty)
   );
 
-  const {formState} = state;
+  const { formState } = state;
   const [contentValue, setContentValue] = useState(formState.content);
+
+  useEffect(() => {
+    if (state.errors.length > 0) {
+      toast.dismiss();
+      state.errors.forEach((error) => {
+        toast.error(error);
+      });
+    }
+  }, [state.errors]);
+
 
   return (
     <form action={action} className="mb-6">
@@ -85,7 +96,7 @@ export default function ManagePostForm({ publicPost }: ManagePostFormProps) {
 
         <InputText
           labelText="Image Url"
-          name="ImageUrl"
+          name="coverImageUrl"
           placeholder="Image Url"
           type="text"
           defaultValue={formState.coverImageUrl}
