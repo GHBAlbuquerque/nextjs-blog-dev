@@ -18,7 +18,7 @@ type AdminPostsIdPageProps = {
 
 export default async function AdminPostsIdPage({ params } : AdminPostsIdPageProps){
     const {id} = await params;
-    const post = await findPostByIdAdmin(id).catch();
+    const post = await findPostByIdAdmin(id).catch(() => undefined);
     console.log(post);
 
     if(!post) notFound();

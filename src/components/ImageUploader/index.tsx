@@ -3,9 +3,10 @@
 import { ImageUpIcon } from "lucide-react";
 import Button from "../Button";
 import { useRef, useState, useTransition } from "react";
-import { IMAGE_UPLOAD_MAX_SIZE } from "@/lib/post/constants";
 import { toast } from "react-toastify";
 import { uploadImageAction } from "@/actions/posts/upload-image-action";
+
+const imgUploadMaxSize = Number(process.env.NEXT_PUBLIC_IMAGE_UPLOAD_MAX_SIZE) || 0;
 
 type ImageUploaderProps = {
   disabled?: boolean
@@ -30,9 +31,9 @@ export default function ImageUploader({disabled = false}: ImageUploaderProps) {
 
     if (!file) return;
 
-    if (file.size > IMAGE_UPLOAD_MAX_SIZE) {
+    if (file.size > imgUploadMaxSize) {
       toast.error(
-        `Image size must be less than ${IMAGE_UPLOAD_MAX_SIZE / 1000}kb`
+        `Image size must be less than ${imgUploadMaxSize / 1000}kb`
       );
 
       fileInput.value = "";
