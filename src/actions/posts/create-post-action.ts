@@ -70,5 +70,5 @@ export async function createPostAction(
 
 
   revalidateTag("posts"); //defined on the queries file for posts, revalidate the cache tag to include the new one
-  redirect(`/admin/posts/${newPost.id}`);
+  redirect(`/admin/posts/${newPost.id}?created=1`);
 }

@@ -11,6 +11,7 @@ import { makePartialPublicPost, PublicPost } from "@/dto/post/dto";
 import { createPostAction } from "@/actions/posts/create-post-action";
 import { toast } from "react-toastify";
 import { updatePostAction } from "@/actions/posts/update-post-action";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type ManagePostFormUpdateProps = { // props for update with publicPost
   mode: "update";
@@ -27,6 +28,9 @@ type ManagePostFormProps =
 
 export default function ManagePostForm(props: ManagePostFormProps) {
   const { mode } = props;
+  const searchParams = useSearchParams();
+  const created = searchParams.get("created");
+  const router = useRouter();
   
   let publicPost;
   if (mode === "update") {
@@ -63,9 +67,22 @@ export default function ManagePostForm(props: ManagePostFormProps) {
   useEffect(() => {
      if(state.success) {
       toast.dismiss();
-      toast.success(`Successfully ${mode === "create" ? "created" : "updated"} post.`)
+      toast.success(`Successfully updated post.`)
     }
-  }, [state.success, mode]);
+  }, [state.success]);
+
+    useEffect(() => {
+     if(created === '1') {
+      toast.dismiss();
+      toast.success(`Successfully created post.`)
+      
+      // clean up URL to remove "created"param so message is not shown on refresh
+      const url = new URL(window.location.href) //get current url
+      url.searchParams.delete('created');
+      router.replace(url.toString());
+    }
+
+  }, [created, router]);
 
   return (
     <form action={action} className="mb-6">

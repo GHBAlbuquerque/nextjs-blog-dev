@@ -26,7 +26,7 @@ const PostBaseSchema = z.object({
     .min(3, 'Excerpt must have a minimum of 3 characters')
     .max(200, 'Excerpt must have a maximum of 200 characters'),
   coverImageUrl: z.string().trim().refine(isUrlOrRelativePath, { // validates using function we created
-    message: 'Url is not valid',
+    message: 'Image url is not valid',
   }),
   published: z
     .union([
