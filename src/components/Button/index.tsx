@@ -39,11 +39,9 @@ export default function Button({
   const buttonVariant = buttonVariants[variant];
   const buttonSize = buttonSizes[size];
 
-  return (
-    <button
-      className={clsx(
-        `${buttonVariant}`,
-        `${buttonSize}`,
+  const buttonClasses = clsx(
+        buttonVariant,
+        buttonSize,
         "flex",
         "items-center",
         "justify-center",
@@ -52,10 +50,11 @@ export default function Button({
         "disabled:bg-slate-200",
         "disabled:text-slate-400",
         "disabled:cursor-not-allowed",
-        props.className
-      )}
-      {...props}
-    >
+        props.className,
+      );
+
+  return (
+    <button {...props} className={buttonClasses}>
       {children}
     </button>
   );
