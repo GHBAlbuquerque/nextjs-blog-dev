@@ -1,7 +1,6 @@
 "use server";
 
 import { postRepository } from "@/repositories/post";
-import simulateWait from "@/utils/simulate-wait";
 import { revalidateTag } from "next/cache";
 
 export async function deletePostAction(id: string) {
@@ -31,7 +30,6 @@ export async function deletePostAction(id: string) {
   revalidateTag("posts"); //defined on the queries file for posts,  revalidate the cache tag to remove the deleted one
   revalidateTag(`post-${post.slug}`); //defined on the queries file for posts
 
-  await simulateWait();
   return {
     error: "",
   };

@@ -9,7 +9,7 @@ export interface PostRepository {
   findById(id: string): Promise<PostModel>;
 
   // mutations
-  create(post: PostModel): Promise<PostModel>;
+  create(newPost: PostModel): Promise<PostModel>;
   update(
     id: string,
     newPostData: Omit<PostModel, "id" | "slug" | "createdAt">

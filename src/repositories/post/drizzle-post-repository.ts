@@ -55,10 +55,10 @@ export class DrizzlePostRepository implements PostRepository {
     return post;
   }
 
-  async create(post: PostModel): Promise<PostModel> {
+  async create(newPost: PostModel): Promise<PostModel> {
     const postExists = await drizzleDb.query.posts.findFirst({
       where: (posts, { or, eq }) =>
-        or(eq(posts.id, post.id), eq(posts.slug, post.slug)),
+        or(eq(posts.id, newPost.id), eq(posts.slug, newPost.slug)),
       columns: { id: true },
     });
 
@@ -67,9 +67,9 @@ export class DrizzlePostRepository implements PostRepository {
     }
 
     await simulateWait();
-    await drizzleDb.insert(postsTable).values(post);
+    await drizzleDb.insert(postsTable).values(newPost);
     
-    return post;
+    return newPost;
   }
 
   async update(
@@ -117,6 +117,7 @@ export class DrizzlePostRepository implements PostRepository {
       throw new Error("Post does not exist");
     }
 
+    await simulateWait();
     await drizzleDb.delete(postsTable).where(eq(postsTable.id, id));
 
     return post;
