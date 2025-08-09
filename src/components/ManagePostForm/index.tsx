@@ -52,11 +52,6 @@ export default function ManagePostForm(props: ManagePostFormProps) {
   const [contentValue, setContentValue] = useState(formState.content);
 
   useEffect(() => {
-    if(state.success) {
-      toast.dismiss();
-      toast.success(`Successfully ${mode === "create" ? "created" : "updated"} post.`)
-    }
-
     if (state.errors.length > 0) {
       toast.dismiss();
       state.errors.forEach((error) => {
@@ -64,6 +59,13 @@ export default function ManagePostForm(props: ManagePostFormProps) {
       });
     }
   }, [state.errors]);
+
+  useEffect(() => {
+     if(state.success) {
+      toast.dismiss();
+      toast.success(`Successfully ${mode === "create" ? "created" : "updated"} post.`)
+    }
+  }, [state.success, mode]);
 
   return (
     <form action={action} className="mb-6">
@@ -123,7 +125,7 @@ export default function ManagePostForm(props: ManagePostFormProps) {
           disabled={isPending}
         />
 
-        <ImageUploader />
+        <ImageUploader disabled={isPending}/>
 
         <InputText
           labelText="Image Url"

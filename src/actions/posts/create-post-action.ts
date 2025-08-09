@@ -13,7 +13,7 @@ import { postRepository } from "@/repositories/post";
 type CreatePostActionState = {
   formState: PublicPost;
   errors: string[];
-  success?: true;
+  success?: string;
 };
 
 export async function createPostAction(
