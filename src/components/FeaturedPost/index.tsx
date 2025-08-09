@@ -1,9 +1,13 @@
-import { findAllPublicPostsCached } from "@/lib/post/queries";
+import { findAllPublicPostsCached } from "@/lib/post/queries/public";
 import PostCoverImage from "../PostCoverImage";
 import PostSummary from "../PostSummary";
+import DisplayErrorMessage from "../DisplayErrorMessage";
 
 export default async function FeaturedPost() {
   const posts = await findAllPublicPostsCached();
+
+  if(posts.length === 0) return <DisplayErrorMessage contentTitle='Ops! 😅' content='No posts yet.'/>
+
   const post = posts[0];
 
   const postLink = `/posts/${post.slug}`;

@@ -6,17 +6,29 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed": "npx tsx src/db/drizzle/seed.ts"
   },
   "dependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@uiw/react-md-editor": "^4.0.8",
+    "better-sqlite3": "^12.2.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "drizzle-kit": "^0.31.4",
+    "drizzle-orm": "^0.44.2",
+    "lucide-react": "^0.525.0",
     "next": "15.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-markdown": "^10.1.0",
+    "react-toastify": "^11.0.5",
     "rehype-sanitize": "^6.0.0",
-    "remark-gfm": "^4.0.1"
+    "remark-gfm": "^4.0.1",
+    "sanitize-html": "^2.17.0",
+    "slugify": "^1.6.6",
+    "uuid": "^11.1.0",
+    "zod": "^4.0.15"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -25,6 +37,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/sanitize-html": "^2.16.0",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
     "tailwindcss": "^4",
