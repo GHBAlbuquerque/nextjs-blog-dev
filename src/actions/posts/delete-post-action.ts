@@ -5,7 +5,7 @@ import simulateWait from "@/utils/simulate-wait";
 import { revalidateTag } from "next/cache";
 
 export async function deletePostAction(id: string) {
-  //TODO: check user login before deleting
+  //TODO: check user login before executing
 
   if (!id || typeof id !== "string") {
     return {

@@ -22,6 +22,7 @@ export async function createPostAction(
 ): Promise<CreatePostActionState> {
   // create a CreatePostActionState with params from formData
 
+  //TODO: check user login before executing
   if (!(formData instanceof FormData)) {
     return {
       formState: prevState.formState,
@@ -55,19 +56,18 @@ export async function createPostAction(
   try {
     await postRepository.create(newPost);
   } catch (e: unknown) {
-    if(e instanceof Error) {
+    if (e instanceof Error) {
       return {
         formState: newPost,
-        errors: [e.message]
-      }
+        errors: [e.message],
+      };
     }
 
     return {
       formState: newPost,
-      errors: ["Unknown error"]
-    }
+      errors: ["Unknown error"],
+    };
   }
-
 
   revalidateTag("posts"); //defined on the queries file for posts, revalidate the cache tag to include the new one
   redirect(`/admin/posts/${newPost.id}?created=1`);

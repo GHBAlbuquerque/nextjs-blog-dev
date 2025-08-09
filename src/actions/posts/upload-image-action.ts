@@ -1,6 +1,10 @@
 "use server";
 
-import { IMAGE_SERVER_URL, IMAGE_UPLOAD_DIR, IMAGE_UPLOAD_MAX_SIZE } from "@/lib/post/constants";
+import {
+  IMAGE_SERVER_URL,
+  IMAGE_UPLOAD_DIR,
+  IMAGE_UPLOAD_MAX_SIZE,
+} from "@/lib/post/constants";
 import simulateWait from "@/utils/simulate-wait";
 import { mkdir, writeFile } from "fs/promises";
 import { extname, resolve } from "path";
@@ -16,9 +20,8 @@ type UploadImageActionResult = {
 export async function uploadImageAction(
   formData: FormData
 ): Promise<UploadImageActionResult> {
-
-    await simulateWait();
-
+  await simulateWait();
+  //TODO: check user login before executing
 
   const makeResult = ({ url = "", error = "" }): UploadImageActionResult => ({
     url,
@@ -39,16 +42,16 @@ export async function uploadImageAction(
     return makeResult({ error: "File is too large." });
   }
 
-      console.log(file.type);
+  console.log(file.type);
   if (!file.type.startsWith("image/")) {
     return makeResult({ error: "Invalid image." });
   }
 
   const imageExtension = extname(file.name);
-  const uniqueImageName = `${Date.now()}_${file.name}_${imageExtension}`
+  const uniqueImageName = `${Date.now()}_${file.name}_${imageExtension}`;
 
-  const uploadFullPath = resolve(process.cwd(), 'public', IMAGE_UPLOAD_DIR);
-  await mkdir(uploadFullPath, {recursive: true});
+  const uploadFullPath = resolve(process.cwd(), "public", IMAGE_UPLOAD_DIR);
+  await mkdir(uploadFullPath, { recursive: true });
 
   // JS from the window -> bytes -> Node -> save
   const fileArrayBuffer = await file.arrayBuffer();

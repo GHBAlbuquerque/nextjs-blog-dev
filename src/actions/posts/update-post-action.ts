@@ -23,6 +23,7 @@ export async function updatePostAction(
 ): Promise<UpdatePostActionState> {
   // update a UpdatePostActionState with params from formData
 
+  //TODO: check user login before executing
   if (!(formData instanceof FormData)) {
     return {
       formState: prevState.formState,
