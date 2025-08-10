@@ -1,5 +1,6 @@
 "use server";
 
+import { verifyPassword } from "@/lib/login/manage-login";
 import simulateWait from "@/utils/simulate-wait";
 
 type LoginActionState = {
@@ -13,7 +14,7 @@ export async function loginAction(state: LoginActionState, formData: FormData) {
   if (!(formData instanceof FormData)) {
     return {
       username: "",
-      errors: ["InvalidData"],
+      errors: ["Invalid data"],
     };
   }
 
@@ -28,12 +29,24 @@ export async function loginAction(state: LoginActionState, formData: FormData) {
   }
 
   // if there was a database, I'd check if user exists, returning its pass hash
-  const isUsernameValid = (username === process.env.LOGIN_USER);
-  const isPasswordValid = (password === process.env.LOGIN_PASS);
+  const isUsernameValid = username === process.env.LOGIN_USER;
+  const isPasswordValid = await verifyPassword(
+    password,
+    process.env.LOGIN_PASS?.toString() || ""
+  );
+
+  if (!isUsernameValid || !isPasswordValid) {
+    return {
+      username: username,
+      errors: ["User or password invalid"],
+    };
+  }
+
+  // Create cookie
+  // Redirect page
 
   return {
     username: "",
     errors: [],
   };
 }
-

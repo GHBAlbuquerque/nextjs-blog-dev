@@ -55,7 +55,7 @@ export default function LoginForm() {
           Login
         </Button>
 
-        {state.errors && <p className="text-red-500">{state.errors}</p>}
+        {state.errors && <p className="text-red-500">* {state.errors}</p>}
       </form>
     </div>
   );
