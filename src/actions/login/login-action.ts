@@ -1,7 +1,8 @@
 "use server";
 
-import { verifyPassword } from "@/lib/login/manage-login";
+import { createLoginSession, verifyPassword } from "@/lib/login/manage-login";
 import simulateWait from "@/utils/simulate-wait";
+import { redirect } from "next/navigation";
 
 type LoginActionState = {
   username: string;
@@ -43,10 +44,8 @@ export async function loginAction(state: LoginActionState, formData: FormData) {
   }
 
   // Create cookie
-  // Redirect page
+  await createLoginSession(username);
 
-  return {
-    username: "",
-    errors: [],
-  };
+  // Redirect page
+  redirect("/admin/posts");
 }

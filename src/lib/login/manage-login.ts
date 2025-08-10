@@ -1,7 +1,15 @@
 import bcrypt from "bcryptjs";
+import { cookies } from "next/headers";
 
 const BASE_64 = "base64";
 const UTF_8 = "utf-8";
+
+const jwtSecretKey = process.env.JWT_SECRET_KEY;
+const jwtEncodedKey = new TextEncoder().encode(jwtSecretKey);
+
+const loginExpSeconds = Number(process.env.LOGIN_EXPIRATION_SECONDS) || 3600;
+const loginExpStr = process.env.LOGIN_EXPIRATION_STRING || "1h";
+const loginCookieName = process.env.LOGIN_COOKIE_NAME || "loginSession";
 
 export async function hashPassword(password: string) {
   const hash = await bcrypt.hash(password, 10);
@@ -14,18 +22,22 @@ export async function verifyPassword(password: string, base64hash: string) {
   return await bcrypt.compare(password, hash);
 }
 
-/*
-TEST:
+export async function createLoginSession(username: string) {
+  const expiresAt = new Date(Date.now() + loginExpSeconds * 1000);
+  const loginSession = username + "-login-session"; //JWT
+  const cookieStore = await cookies();
 
-(async () => {
-  const hash = await hashPassword("admin#password#1");
-  console.log({ hash });
-})();
+  cookieStore.set(loginCookieName, loginSession, {
+    httpOnly: true, //stops browser from being able to read the cookie
+    secure: true,
+    sameSite: "strict", // “Only send this cookie when the request comes from the same site that set it, never send it with cross-site requests, not even when following a link.”
+    expires: expiresAt,
+  });
+}
 
-(async () => {
-  const isPasswordValid = await verifyPassword(
-    "admin#password#1",
-    "JDJiJDEwJDFrUldPR0VQOUh5UFc2d3ZmMmZhamVZR2Zma1JZUC9MOTNteDlVd2N6VnVMakd0WDU1dDVH"
-  );
-  console.log(isPasswordValid);
-})();*/
+export async function deleteLoginSession() {
+  const cookieStore = await cookies();
+  cookieStore.set(loginCookieName, "", { expires: new Date(0) });
+
+  cookieStore.delete(loginCookieName);
+}
