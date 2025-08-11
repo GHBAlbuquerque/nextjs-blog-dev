@@ -1,11 +1,13 @@
 "use server";
 
+import { verifyLoginSession } from "@/lib/login/manage-login";
 import { mkdir, writeFile } from "fs/promises";
 import { extname, resolve } from "path";
 
-const imgServerUrl = process.env.NEXT_PUBLIC_IMAGE_SERVER_URL || '';
-const imgUploadDir = process.env.NEXT_PUBLIC_IMAGE_UPLOAD_DIR || '';
-const imgUploadMaxSize = Number(process.env.NEXT_PUBLIC_IMAGE_UPLOAD_MAX_SIZE) || 0;
+const imgServerUrl = process.env.NEXT_PUBLIC_IMAGE_SERVER_URL || "";
+const imgUploadDir = process.env.NEXT_PUBLIC_IMAGE_UPLOAD_DIR || "";
+const imgUploadMaxSize =
+  Number(process.env.NEXT_PUBLIC_IMAGE_UPLOAD_MAX_SIZE) || 0;
 
 // any function inside this file will be a server action, exposed to the client
 // beware of helper functions because they might be exposed
@@ -18,12 +20,18 @@ type UploadImageActionResult = {
 export async function uploadImageAction(
   formData: FormData
 ): Promise<UploadImageActionResult> {
-  //TODO: check user login before executing
+  const isAuthenticated = await verifyLoginSession();
 
   const makeResult = ({ url = "", error = "" }): UploadImageActionResult => ({
     url,
     error,
   });
+
+  if (!isAuthenticated) {
+    return makeResult({
+      error: "Please login again",
+    });
+  }
 
   if (!(formData instanceof FormData)) {
     return makeResult({ error: "Invalid data." });

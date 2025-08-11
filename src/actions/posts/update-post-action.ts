@@ -10,6 +10,7 @@ import { getZodErrorMessages } from "@/utils/get-zod-error-messages";
 import { revalidateTag } from "next/cache";
 import { postRepository } from "@/repositories/post";
 import { makeRandomString } from "@/utils/make-random-string";
+import { verifyLoginSession } from "@/lib/login/manage-login";
 
 type UpdatePostActionState = {
   formState: PublicPost;
@@ -17,13 +18,13 @@ type UpdatePostActionState = {
   success?: string;
 };
 
+// update a UpdatePostActionState with params from formData
 export async function updatePostAction(
   prevState: UpdatePostActionState,
   formData: FormData
 ): Promise<UpdatePostActionState> {
-  // update a UpdatePostActionState with params from formData
+  const isAuthenticated = await verifyLoginSession();
 
-  //TODO: check user login before executing
   if (!(formData instanceof FormData)) {
     return {
       formState: prevState.formState,
@@ -43,6 +44,13 @@ export async function updatePostAction(
   const formDataEntries = formData.entries(); // generate key-value objects from formData
   const formDataObj = Object.fromEntries(formDataEntries);
   const zodValidatedObj = PostUpdateSchema.safeParse(formDataObj);
+
+  if (!isAuthenticated) {
+    return {
+      formState: makePartialPublicPost(formDataObj),
+      errors: ["Please login in another tab before submitting"],
+    };
+  }
 
   if (!zodValidatedObj.success) {
     const errors = getZodErrorMessages(zodValidatedObj.error.format());
