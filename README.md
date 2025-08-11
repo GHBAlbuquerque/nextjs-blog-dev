@@ -3,8 +3,6 @@
 A visually stunning planet-themed blog built with **Next.js**, **Tailwind CSS**, and **TypeScript**.  
 Discover new worlds, galaxies, and cosmic wonders through beautiful images and engaging articles.
 
-![Screenshot of The Planet Blog](./screenshot.png)
-
 ## 🚀 Features
 
 - **Dynamic blog posts** with title, excerpt, and publication date
@@ -37,9 +35,8 @@ public/uploads/ # Blog cover images
 
 ## 🖼️ Screenshots
 
-| Light Mode                            | Dark Mode                           |
-| ------------------------------------- | ----------------------------------- |
-| ![Light Mode](./screenshot-light.png) | ![Dark Mode](./screenshot-dark.png) |
+Landing Page
+![Screenshot of The Planet Blog](./misc/landing_page.png)
 
 ## 🔧 Installation
 
