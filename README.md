@@ -19,7 +19,7 @@ Discover new worlds, galaxies, and cosmic wonders through beautiful images and e
 - **[Tailwind CSS](https://tailwindcss.com/)** – Utility-first CSS framework for styling
 - **[TypeScript](https://www.typescriptlang.org/)** – Type-safe development
 - **[clsx](https://github.com/lukeed/clsx)** – Conditional className handling
-- **[React Icons](https://react-icons.github.io/react-icons/)** – Icon library for login/profile buttons
+- **[Lucide Icons](https://lucide.dev/icons/)** – Icon library for login/profile buttons
 
 ## 📂 Project Structure
 
@@ -89,11 +89,5 @@ npx tsx src/db/drizzle/seed.ts
 
 ---
 
-## 📜 License
-
-This project is licensed under the MIT License.
-
----
-
 ✨ Done by @GHBAlbuquerque
-“Discover new worlds and galaxies.”
+`“Discover new worlds and galaxies.”`
