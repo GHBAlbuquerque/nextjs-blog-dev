@@ -1,9 +1,12 @@
 import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
-import { SignJWT } from "jose";
+import { jwtVerify, SignJWT } from "jose";
+import { redirect } from "next/navigation";
 
 const BASE_64 = "base64";
 const UTF_8 = "utf-8";
+
+const adminUsername = process.env.LOGIN_USER;
 
 const jwtSecretKey = process.env.JWT_SECRET_KEY;
 const jwtEncodedKey = new TextEncoder().encode(jwtSecretKey);
@@ -50,6 +53,48 @@ export async function signJwt(jwtPayload: JwtPayload) {
     .setIssuedAt()
     .setExpirationTime(loginExpStr)
     .sign(jwtEncodedKey);
+}
+
+// Checks if JWT exists and is valid
+export async function getLoginSession() {
+  const cookieStore = await cookies();
+
+  const jwt = cookieStore.get(loginCookieName)?.value;
+
+  if (jwt!) return false; // user not logged in
+
+  return verifyJwt(jwt); // validates jwt
+}
+
+// Checks if logged user is the Admin user
+export async function verifyLoginSession() {
+  const jwtPayload = await getLoginSession();
+
+  if (!jwtPayload) return false;
+
+  return jwtPayload?.username === adminUsername;
+}
+
+// Checks if JWT is valid, if not, redirects to login page
+export async function requireLoginSessionOrRedirect() {
+  const isAuthenticated = await getLoginSession();
+
+  if (!isAuthenticated) {
+    redirect("/admin/login");
+  }
+}
+
+export async function verifyJwt(jwt: string | undefined = "") {
+  try {
+    const { payload } = await jwtVerify(jwt, jwtEncodedKey, {
+      algorithms: ["HS256"],
+    });
+
+    return payload;
+  } catch {
+    console.log("invalid token");
+    return false;
+  }
 }
 
 export async function deleteLoginSession() {
