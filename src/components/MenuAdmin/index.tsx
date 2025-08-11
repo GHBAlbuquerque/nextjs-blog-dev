@@ -2,8 +2,6 @@
 
 import { logoutAction } from "@/actions/login/logout-action";
 import clsx from "clsx";
-import { log } from "console";
-import { is } from "drizzle-orm";
 import {
   CircleXIcon,
   FileTextIcon,

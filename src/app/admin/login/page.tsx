@@ -1,6 +1,8 @@
 import DisplayErrorMessage from "@/components/DisplayErrorMessage";
 import LoginForm from "@/components/LoginForm";
+import { verifyLoginSession } from "@/lib/login/manage-login";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
@@ -21,6 +23,10 @@ export default async function AdminLoginPage() {
         }
       />
     );
+  }
+  const isLoggedIn = await verifyLoginSession();
+  if (isLoggedIn) {
+    redirect("/admin/posts");
   }
 
   return <LoginForm />;
