@@ -55,17 +55,17 @@ npm run dev
 # Then open http://localhost:3000 in your browser.
 ```
 
-## ⚙️ Database Setup with Drizzle
+### ⚙️ Database Setup with Drizzle
 
 Make sure you have set up your `drizzleConfig` before proceeding.
 
-### Creating the table
+1. Creating the table
 
 ```bash
 npc drizzle-kit push
 ```
 
-### Using migrations
+2. Using migrations
 
 To generate a new migration file:
 
@@ -73,7 +73,7 @@ To generate a new migration file:
 npx drizzle-kit generate
 ```
 
-To apply migrations:
+3. To apply migrations:
 
 ```bash
 npx drizzle-kit migrate
@@ -81,19 +81,19 @@ npx drizzle-kit migrate
 
 ### Running seeds
 
-To seed the database, run:
+1. To seed the database (json), run:
 
 ```bash
 npx tsx src/db/drizzle/seed.ts
 ```
 
-⸻
+---
 
 ## 📜 License
 
 This project is licensed under the MIT License.
 
-⸻
+---
 
 ✨ Done by @GHBAlbuquerque
 “Discover new worlds and galaxies.”
