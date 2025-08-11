@@ -13,7 +13,6 @@ export async function loginAction(state: LoginActionState, formData: FormData) {
   await simulateWait();
 
   const allowLogin = Boolean(Number(process.env.ALLOW_LOGIN));
-  console.log(allowLogin);
 
   if (!allowLogin) {
     return {
