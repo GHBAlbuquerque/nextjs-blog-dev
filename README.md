@@ -37,8 +37,6 @@ public/uploads/ # Blog cover images
 
 ![Screenshot of The Planet Blog](./misc/landing_page.png)
 
----
-
 ## 🔧 Installation
 
 ```bash
