@@ -60,8 +60,9 @@ export async function getLoginSession() {
   const cookieStore = await cookies();
 
   const jwt = cookieStore.get(loginCookieName)?.value;
+  console.log(jwt);
 
-  if (jwt!) return false; // user not logged in
+  if (!jwt) return false; // user not logged in
 
   return verifyJwt(jwt); // validates jwt
 }
@@ -69,6 +70,7 @@ export async function getLoginSession() {
 // Checks if logged user is the Admin user
 export async function verifyLoginSession() {
   const jwtPayload = await getLoginSession();
+  console.log(jwtPayload);
 
   if (!jwtPayload) return false;
 
