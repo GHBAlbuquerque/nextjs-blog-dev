@@ -35,8 +35,9 @@ public/uploads/ # Blog cover images
 
 ## 🖼️ Screenshots
 
-Landing Page
 ![Screenshot of The Planet Blog](./misc/landing_page.png)
+
+---
 
 ## 🔧 Installation
 
@@ -53,8 +54,6 @@ npm run dev
 
 # Then open http://localhost:3000 in your browser.
 ```
-
----
 
 ## ⚙️ Database Setup with Drizzle
 
@@ -87,6 +86,8 @@ To seed the database, run:
 ```bash
 npx tsx src/db/drizzle/seed.ts
 ```
+
+⸻
 
 ## 📜 License
 
