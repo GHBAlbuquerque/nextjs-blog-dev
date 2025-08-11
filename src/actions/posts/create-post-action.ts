@@ -9,6 +9,7 @@ import { revalidateTag } from "next/cache";
 import { v4 as uuidV4 } from "uuid";
 import { redirect } from "next/navigation";
 import { postRepository } from "@/repositories/post";
+import { verifyLoginSession } from "@/lib/login/manage-login";
 
 type CreatePostActionState = {
   formState: PublicPost;
@@ -16,13 +17,13 @@ type CreatePostActionState = {
   success?: string;
 };
 
+// create a CreatePostActionState with params from formData
 export async function createPostAction(
   prevState: CreatePostActionState,
   formData: FormData
 ): Promise<CreatePostActionState> {
-  // create a CreatePostActionState with params from formData
+  const isAuthenticated = await verifyLoginSession();
 
-  //TODO: check user login before executing
   if (!(formData instanceof FormData)) {
     return {
       formState: prevState.formState,
@@ -30,17 +31,22 @@ export async function createPostAction(
     };
   }
 
-  const formDataEntries = formData.entries(); // generfate key-value objects from formData
+  const formDataEntries = formData.entries(); // generate key-value objects from formData
   const formDataObj = Object.fromEntries(formDataEntries);
   const zodValidatedObj = PostCreateSchema.safeParse(formDataObj);
 
-  console.log("formDataObj", formDataObj);
+  if (!isAuthenticated) {
+    return {
+      formState: makePartialPublicPost(formDataObj),
+      errors: ["Please login in another tab before submitting"],
+    };
+  }
 
   if (!zodValidatedObj.success) {
     const errors = getZodErrorMessages(zodValidatedObj.error.format());
     return {
-      errors: errors,
       formState: makePartialPublicPost(formDataObj), // fields in the form have the same keys as PublicPost
+      errors: errors,
     };
   }
 
