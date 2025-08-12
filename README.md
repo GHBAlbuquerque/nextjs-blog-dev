@@ -3,8 +3,6 @@
 A visually stunning planet-themed blog built with **Next.js**, **Tailwind CSS**, and **TypeScript**.  
 Discover new worlds, galaxies, and cosmic wonders through beautiful images and engaging articles.
 
-![Screenshot of The Planet Blog](./screenshot.png)
-
 ## 🚀 Features
 
 - **Dynamic blog posts** with title, excerpt, and publication date
@@ -21,7 +19,7 @@ Discover new worlds, galaxies, and cosmic wonders through beautiful images and e
 - **[Tailwind CSS](https://tailwindcss.com/)** – Utility-first CSS framework for styling
 - **[TypeScript](https://www.typescriptlang.org/)** – Type-safe development
 - **[clsx](https://github.com/lukeed/clsx)** – Conditional className handling
-- **[React Icons](https://react-icons.github.io/react-icons/)** – Icon library for login/profile buttons
+- **[Lucide Icons](https://lucide.dev/icons/)** – Icon library for login/profile buttons
 
 ## 📂 Project Structure
 
@@ -37,65 +35,57 @@ public/uploads/ # Blog cover images
 
 ## 🖼️ Screenshots
 
-| Light Mode                            | Dark Mode                           |
-| ------------------------------------- | ----------------------------------- |
-| ![Light Mode](./screenshot-light.png) | ![Dark Mode](./screenshot-dark.png) |
+![Screenshot of The Planet Blog](./misc/landing_page.png)
 
 ## 🔧 Installation
+
+1. Clone the repository
 
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/the-planet-blog.git
 cd the-planet-blog
+```
 
+2. Install all dependencies (must have node installed)
+
+```bash
 # Install dependencies
 npm install
+```
 
-# Run the development server
+3. Configure your env.local file based on env.local-EXAMPLE
+
+4. Create the database using drizzle
+
+```bash
+# Install dependencies
+npm run migrate
+```
+
+5. (optional) Use seed for database population
+
+```bash
+# Install dependencies
+npm run seed
+```
+
+6. Run the app
+
+```bash
+# Run the development server in developer mode
 npm run dev
 
-# Then open http://localhost:3000 in your browser.
+OR
+
+# run in production mode
+npm run build
+npm start # apenas para test
 ```
+
+7. Then open http://localhost:3000 in your browser.
 
 ---
 
-## ⚙️ Database Setup with Drizzle
-
-Make sure you have set up your `drizzleConfig` before proceeding.
-
-### Creating the table
-
-```bash
-npc drizzle-kit push
-```
-
-### Using migrations
-
-To generate a new migration file:
-
-```bash
-npx drizzle-kit generate
-```
-
-To apply migrations:
-
-```bash
-npx drizzle-kit migrate
-```
-
-### Running seeds
-
-To seed the database, run:
-
-```bash
-npx tsx src/db/drizzle/seed.ts
-```
-
-## 📜 License
-
-This project is licensed under the MIT License.
-
-⸻
-
 ✨ Done by @GHBAlbuquerque
-“Discover new worlds and galaxies.”
+`“Discover new worlds and galaxies.”`

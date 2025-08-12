@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { verifyJwt } from "./lib/login/manage-login";
 
 // use this middleware to intercept requests and do validations
 export async function middleware(request: NextRequest) {
@@ -16,7 +17,14 @@ export async function middleware(request: NextRequest) {
 
   const jwtSession = request.cookies.get(
     process.env.LOGIN_COOKIE_NAME || "loginSession"
-  );
+  )?.value;
+
+  const isAuthenticated = await verifyJwt(jwtSession);
+
+  if (!isAuthenticated) {
+    const loginUrl = new URL("/admin/login", request.url); //if not authenticated, middlware redirects
+    return NextResponse.redirect(loginUrl);
+  }
 
   return NextResponse.next();
 }

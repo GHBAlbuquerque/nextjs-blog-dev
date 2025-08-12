@@ -1,6 +1,6 @@
 /*TEST:*/
 
-import { hashPassword, verifyPassword } from "./manage-login";
+import { hashPassword, verifyPassword } from "@/lib/login/manage-login";
 
 (async () => {
   const hash = await hashPassword("admin#password#1");
