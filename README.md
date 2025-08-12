@@ -39,51 +39,51 @@ public/uploads/ # Blog cover images
 
 ## 🔧 Installation
 
+1. Clone the repository
+
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/the-planet-blog.git
 cd the-planet-blog
+```
 
+2. Install all dependencies (must have node installed)
+
+```bash
 # Install dependencies
 npm install
+```
 
-# Run the development server
+3. Configure your env.local file based on env.local-EXAMPLE
+
+4. Create the database using drizzle
+
+```bash
+# Install dependencies
+npm run migrate
+```
+
+5. (optional) Use seed for database population
+
+```bash
+# Install dependencies
+npm run seed
+```
+
+6. Run the app
+
+```bash
+# Run the development server in developer mode
 npm run dev
 
-# Then open http://localhost:3000 in your browser.
+OR
+
+# run in production mode
+npm run build
+npm start # apenas para test
 ```
 
-### ⚙️ Database Setup with Drizzle
-
-Make sure you have set up your `drizzleConfig` before proceeding.
-
-1. Creating the table
-
-```bash
-npc drizzle-kit push
-```
-
-2. Using migrations
-
-To generate a new migration file:
-
-```bash
-npx drizzle-kit generate
-```
-
-3. To apply migrations:
-
-```bash
-npx drizzle-kit migrate
-```
-
-### Running seeds
-
-1. To seed the database (json), run:
-
-```bash
-npx tsx src/db/drizzle/seed.ts
-```
+7. Then open http://localhost:3000 in your browser.
 
 ---
 
